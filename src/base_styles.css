@@ -1,0 +1,14 @@
+/* spa body equivalent is #app */
+#app,
+#root {
+  display: grid;
+  min-height: 100svh;
+  grid-template-rows: auto 1fr auto;
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+#root > * + * {
+  margin-top: 1rem;
+}

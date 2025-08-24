@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DaysIndexRouteImport } from './routes/days/index'
+import { Route as AboutIndexRouteImport } from './routes/about/index'
+import { Route as DaysDayIdRouteImport } from './routes/days/$dayId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DaysIndexRoute = DaysIndexRouteImport.update({
+  id: '/days/',
+  path: '/days/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutIndexRoute = AboutIndexRouteImport.update({
+  id: '/about/',
+  path: '/about/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DaysDayIdRoute = DaysDayIdRouteImport.update({
+  id: '/days/$dayId',
+  path: '/days/$dayId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/days/$dayId': typeof DaysDayIdRoute
+  '/about': typeof AboutIndexRoute
+  '/days': typeof DaysIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/days/$dayId': typeof DaysDayIdRoute
+  '/about': typeof AboutIndexRoute
+  '/days': typeof DaysIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/days/$dayId': typeof DaysDayIdRoute
+  '/about/': typeof AboutIndexRoute
+  '/days/': typeof DaysIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/days/$dayId' | '/about' | '/days'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/days/$dayId' | '/about' | '/days'
+  id: '__root__' | '/' | '/days/$dayId' | '/about/' | '/days/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DaysDayIdRoute: typeof DaysDayIdRoute
+  AboutIndexRoute: typeof AboutIndexRoute
+  DaysIndexRoute: typeof DaysIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/days/': {
+      id: '/days/'
+      path: '/days'
+      fullPath: '/days'
+      preLoaderRoute: typeof DaysIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about/': {
+      id: '/about/'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/days/$dayId': {
+      id: '/days/$dayId'
+      path: '/days/$dayId'
+      fullPath: '/days/$dayId'
+      preLoaderRoute: typeof DaysDayIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DaysDayIdRoute: DaysDayIdRoute,
+  AboutIndexRoute: AboutIndexRoute,
+  DaysIndexRoute: DaysIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

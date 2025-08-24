@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { routeTree } from "./routeTree.gen";
 
 import "./styles.css";
+import "./base_styles.css";
 import reportWebVitals from "./reportWebVitals.ts";
 
 // Create a new router instance
