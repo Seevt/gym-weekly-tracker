@@ -31,7 +31,7 @@ export function Days() {
     {
       id: 4,
       day: "viernes",
-      routine: "arms",
+      routine: "armss",
     },
   ];
 
